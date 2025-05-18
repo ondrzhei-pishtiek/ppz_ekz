@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ task.title }}</h2>
+<p>{{ task.description }}</p>
+<p>Status: {{ task.get_status_display }}</p>
+{% if task.image %}
+  <img src="{{ task.image.url }}" width="300" />
+{% endif %}
+
+<h3>Comments</h3>
+<ul>
+  {% for comment in comments %}
+    <li><b>{{ comment.author }}</b>: {{ comment.text }}</li>
+  {% endfor %}
+</ul>
+
+<h4>Add comment</h4>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Add</button>
+</form>
+{% endblock %}
